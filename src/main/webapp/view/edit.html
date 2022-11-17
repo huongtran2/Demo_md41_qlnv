@@ -1,12 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: johntoan98gmail.com
-  Date: 12/01/2022
-  Time: 10:03
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><html>
 <head>
     <title>Title</title>
 </head>
@@ -14,15 +6,15 @@
 
 <form method="post" action="/edit">
 
-    <input name="id" value="${nhanvien.id}">
+    <input name="id" th:value="${nhanvienshow.id}" readonly>
     <br>
-    <input name="name" value="${nhanvien.name}">
+    <input name="name" th:value="${nhanvienshow.name}">
     <br>
-    <input name="age" value="${nhanvien.age}">
+    <input name="age" th:value="${nhanvienshow.age}">
     <br>
-    <input name="address" value="${nhanvien.address}">
+    <input name="address" th:value="${nhanvienshow.address}">
     <br>
-    <input name="phone" value="${nhanvien.phone}">
+    <input name="phone" th:value="${nhanvienshow.phone}">
     <br>
 
     <button type="submit">Submit</button>

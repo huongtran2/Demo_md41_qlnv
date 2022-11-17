@@ -29,10 +29,7 @@ public class NhanVienService {
         }
     }
     public static  void  delete(int id){
-        int index = findIndexById(id);
-        if (index !=-1){
-            nhanVienModels.remove(index);
-        }
+            nhanVienModels.remove(id);
     }
     public static NhanVienModel getNhanVienModel(int id){
         return nhanVienModels.get(findIndexById(id));

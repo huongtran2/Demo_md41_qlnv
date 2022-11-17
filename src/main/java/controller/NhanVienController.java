@@ -2,8 +2,8 @@ package controller;
 
 import model.NhanVienModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import service.NhanVienService;
@@ -19,7 +19,7 @@ public class NhanVienController {
 
     @GetMapping("/nhanvien")
     public ModelAndView getALl(){
-        ModelAndView modelAndView = new ModelAndView("/shownhanvien");
+        ModelAndView modelAndView = new ModelAndView("shownhanvien");
         modelAndView.addObject("nhanvienshow",nhanVienService.nhanVienModels);
         return modelAndView;
     }
@@ -35,25 +35,26 @@ public class NhanVienController {
         response.sendRedirect("/nhanvien");
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView showEdit(@PathVariable int id) {
-        ModelAndView modelAndView = new ModelAndView("/edit");
-        modelAndView.addObject("nhanvien",NhanVienService.getNhanVienModel(id));
+
+    @GetMapping("/edit")
+    public ModelAndView showEdit(@RequestParam int id) {
+        ModelAndView modelAndView = new ModelAndView("edit");
+        modelAndView.addObject("nhanvienshow",NhanVienService.getNhanVienModel(id));
         return modelAndView;
     }
 
 
-    @PostMapping ("/edit/{id}")
-    public ModelAndView edit(@ModelAttribute NhanVienModel nhanVienModel, @PathVariable int id) {
+    @PostMapping ("/edit")
+    public ModelAndView edit(@ModelAttribute NhanVienModel nhanVienModel, @RequestParam int id) {
         ModelAndView modelAndView = new ModelAndView("redirect:/nhanvien");
-        NhanVienService.edit(NhanVienService.findIndexById(id), nhanVienModel);
+        NhanVienService.edit(id, nhanVienModel);
         return modelAndView;
     }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam int id) {
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable int id) {
         int index = NhanVienService.findIndexById(id);
-        if (id >= 0) {
+        if (index >= 0) {
             NhanVienService.delete(index);
         }
         return "redirect:/nhanvien";
